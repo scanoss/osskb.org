@@ -1,0 +1,415 @@
+<html>
+	<head>
+		<title>OSSKB Free Open Source Inventorying</title>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet"> 
+		<script src="assets/js/wfp.js"></script>
+		<script src="assets/js/jquery-3.5.1.min.js"></script>
+		<style>
+body
+	{
+	font-family: 'Noto Sans';font-size: 22px;
+	margin: 0px;
+	padding: 0px;
+}
+textarea {
+	margin-top: 10px;
+	resize: none;
+	width: 95%;
+	height: 300px;
+	border-radius: 10px;
+	border: 2px solid transparent #f0f0f0;
+}
+a {
+	text-decoration: none;
+	color: #0000ff;
+}
+#disclaimer {
+	font-size: 10px;
+}
+#results
+{
+    width: 100%;
+}
+#cover
+	{
+	color: #ffffff;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	min-height: 500px;
+	background: rgb(0,1,2);
+	background: linear-gradient(180deg, rgba(0,1,2,1) 0%, rgba(5,78,106,1) 100%);
+}
+#content1
+	{
+	margin: 0px;
+	padding: 0px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	width: 100%;
+	background: #ffffff;
+	color:#555555;
+	min-height: 300px;
+}
+#content2
+	{
+	margin: 0px;
+	padding: 0px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	width: 100%;
+	background: #f0f0f0;
+	color:#555555;
+	min-height: 300px;
+}
+#content3
+	{
+	margin: 0px;
+	padding: 0px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	width: 100%;
+	background: #f8f8f8;
+	color:#555555;
+	min-height: 300px;
+}
+#footer
+	{
+	margin: 0px;
+	padding: 0px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	width: 100%;
+	background: #2f2d2e;
+	color:#ffffff;
+}
+#footer p {color:#ffffff;}
+#footer a {color:#ffffff;}
+h1 { font-size: 48pt; font-weight:700;}
+h2 { font-size: 18pt; font-weight:400; }
+#cover h1{ color: #ffffff; }
+#cover h2{ color: #ffffff; }
+#content1 h2 { color #000000; font-weight:700;}
+#content2 h2 { color #000000; font-weight:700;}
+#content3 h2 { color #000000; font-weight:700;}
+#contact
+	{
+	background: #ff0000;
+	color: #ffffff;
+	padding:15px;
+	text-decoration: none;
+	font-size: 12pt;
+	border-radius: 5px;
+}
+p, h1, h2
+	{
+	margin: 0px;
+	padding: 0px;
+}
+#openkbstatus {
+	border-collapse: collapse;
+	width: 400px;
+}
+
+#openkbstatus td, #openkbstatus th {
+	border: 1px solid #ddd;
+	padding: 5px;
+}
+
+#openkbstatus tr:nth-child(even){background-color: #f2f2f2;}
+
+#openkbstatus tr:hover {background-color: #ddd;}
+
+#openkbstatus th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	background-color: #4CAF50;
+	color: white;
+}
+
+#sbomwrapper {
+	width: 100%;
+	vertical-align: top;
+}
+
+#spdx {
+	width: 50%;
+	float:left;
+}
+
+#cyclonedx {
+	overflow: hidden; /* if you don't want #second to wrap below #first */
+}
+
+#spdx, #cyclonedx {
+	vertical-align: top;
+	white-space: pre-line;
+	font-family: monospace;
+	font-size: 8pt;
+	border-radius: 10px;
+	padding: 10px;
+	background: #ffffff;
+	border: 1px solid #c0c0c0;
+	margin-left:10px;
+	margin-right:10px;
+}
+
+
+		</style>
+	</head>
+	<body>
+		<div id='cover'>
+			<center><br />
+				<table width='1000'>
+					<tr>
+						<td><img src='images/scanoss.png'></td>
+						<td align='right'><a id='contact' href='https://www.scanoss.com/contact/'>Get in touch</a></td>
+					</tr>
+					<tr>
+						<td colspan='2' align='center'>
+							<br /><br />
+							<br /><br />
+							<h1>Open SCA Data, free SBOM</h1>
+							<br />
+							<h2>The First Open Source SCA tool and knowledgebase. No strings attached.</h2>
+						</td>
+					</tr>
+				</table>
+			</center>
+		</div>
+
+		<div id='content1'>
+			<center><br />
+				<table width='1000' cellpadding='25'>
+					<tr>
+						<td colspan='2'><h2>Current OSSKB status [<b>ALPHA</b>]</h2><br />
+							<!--OPENKB_INTRO-->
+							<p>This is an <b>alpha</b> release of the OSSKB. Our automated data mining scripts are constantly indexing Open Source Software. At the moment we have <b>41,994,675 URLs</b> indexed in the OSSKB. You can now perform identification against these repositories for free, but please keep in mind that <b>we are still under construction.</b></p>
+							<br />
+							<p>We are constantly working to grow our OSSKB. If you wish to help, please don't hesitate to <a href="https://scanoss.com/contact">contact us</a>.</p>
+							<!--/OPENKB_INTRO-->
+						</td></tr><tr>
+							<td align='center'>
+								<p>
+								<!--OPENKB_STATUS-->
+								<table id="openkbstatus">
+									<tr>
+										<th width='30%' align='left'>Repository</th>
+										<th align='right'>URLs indexed</th>
+									</tr>
+									<tr><td>github.com</td><td align=right>14,411,564</td></tr>
+									<tr><td>stackoverflow.com</td><td align=right>7,753,919</td></tr>
+									<tr><td>npmjs.org</td><td align=right>6,444,618</td></tr>
+									<tr><td>maven.org</td><td align=right>4,880,316</td></tr>
+									<tr><td>nuget.org</td><td align=right>1,330,402</td></tr>
+									<tr><td>pythonhosted.org</td><td align=right>837,727</td></tr>
+									<tr><td>python.org</td><td align=right>500,946</td></tr>
+									<tr><td>rubygems.org</td><td align=right>498,210</td></tr>
+									<tr><td>debian.org</td><td align=right>454,612</td></tr>
+									<tr><td>googlesource.com</td><td align=right>427,620</td></tr>
+									<tr><td>java2s.com</td><td align=right>235,967</td></tr>
+									<tr><td>gnome.org</td><td align=right>232,955</td></tr>
+									<tr><td>drupal.org</td><td align=right>164,150</td></tr>
+									<tr><td>cloudflare.com</td><td align=right>147,127</td></tr>
+									<tr><td>apache.org</td><td align=right>76,627</td></tr>
+									<tr><td>codeplex.com</td><td align=right>67,081</td></tr>
+								</table>
+							</td>
+							<td align='center'>
+								<table id="openkbstatus">
+									<tr>
+										<th width='30%' align='left'>Repository</th>
+										<th align='right'>URLs indexed</th>
+									</tr>
+									<tr><td>gitee.com</td><td align=right>51,019</td></tr>
+									<tr><td>windows.net</td><td align=right>44,139</td></tr>
+									<tr><td>spring.io</td><td align=right>36,694</td></tr>
+									<tr><td>kernel.org</td><td align=right>29,552</td></tr>
+									<tr><td>launchpad.net</td><td align=right>22,713</td></tr>
+									<tr><td>rdkcentral.com</td><td align=right>18,847</td></tr>
+									<tr><td>opensuse.org</td><td align=right>16,086</td></tr>
+									<tr><td>nasm.us</td><td align=right>15,544</td></tr>
+									<tr><td>gnu.org</td><td align=right>13,803</td></tr>
+									<tr><td>angularjs.org</td><td align=right>12,584</td></tr>
+									<tr><td>openfabrics.org</td><td align=right>11,298</td></tr>
+									<tr><td>cpan.org</td><td align=right>9,685</td></tr>
+									<tr><td>googleapis.com</td><td align=right>9,374</td></tr>
+									<tr><td>videolan.org</td><td align=right>6,071</td></tr>
+									<tr><td>others</td><td align='right'>21,043</td></tr>
+									<tr><td>Total</td><td align='right'><b>41,994,675</b></td></tr>
+								</table>
+								<!--/OPENKB_STATUS-->
+								</p>
+							</td>
+						</tr>
+				</table>
+			</center>
+		</div>
+
+		<div id='content3'>
+			<center><br />
+				<h2>Run a live check</h2><br />
+				<table width='1000' cellpadding='15'>
+					<tr>
+						<td valign='top' align='center'>
+							<p>
+							Paste your code here
+							</p>
+							<textarea id="code" name="code">
+/* Read header from ptr */
+lseek64 (mz, ptr, SEEK_SET);
+if (!read(mz, header, MZ_HEAD))
+{
+printf("[READ_ERROR]\n");
+exit(EXIT_FAILURE);
+}
+
+/* Extract remaining bytes of the MD5 */
+char *tmp = bin_to_hex((uint8_t *)header, MZ_MD5);
+memcpy(hex_md5 + 4, tmp, 28);
+free(tmp);
+ptr += MZ_HEAD;
+							</textarea>
+						</td>
+						<td valign='top' align='center'>
+							<p>
+							Your code fingerprints
+							</p>
+							<textarea id="snippets" name="wfps">
+							</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td colspan = '2' align='center'>
+							<div id='results'>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td align = 'center'>
+							<p>
+							SPDX SBOM
+							</p>
+						</td>
+						<td align = 'center'>
+							<center><p>
+								CycloneDX SBOM
+								</p></center>
+						</td>
+					</tr>
+					<tr>
+						<td valign = 'top' colspan='2'>
+						<div id='sbomwrapper'>
+							<div id='spdx'>
+							</div>
+							<div id='cyclonedx'>
+							</div>
+						</div>
+						</td>
+					</tr>
+				</table>
+
+				<script type="text/javascript">
+					$(document).on('input propertychange', "textarea[name='code']", function () 
+						{
+							rescan();
+						});
+$(document).ready(function() {
+	rescan();
+});
+				</script>
+
+			</center>
+		</div>
+
+		<div id='content2'>
+			<center><br />
+				<table width='1000' cellpadding='25'>
+					<tr>
+						<td>
+							<img src='images/github.png'>
+						</td>
+						<td><h2>Do you want to see more? Get your client software now!</h2><br />
+							<p>The entire SCANOSS Platform is Open Source and we provide a number of client implementations. The simplest way to get access it is to download a client now:</p><br />
+							<p><a href="https://github.com/scanoss/scanner.c/raw/master/scanoss-scanner-1.01_amd64.deb" target="_blank">scanoss-scanner-1.01_amd64.deb (20K)</a></p><br />
+							<p>Questions? Feel free to <a href="https://scanoss.com/contact" target="_blank">contact us</a>.</p>
+						</td>
+					</tr>
+				</table>
+			</center>
+		</div>
+
+		<div id='content1'>
+			<center><br />
+				<table width='1000' cellpadding='25'>
+					<tr>
+						<td><h2>"Start left" in the development process</h2><br />
+							<p>Move Open Source scanning to earlier stages of development: start left</p>
+							<ul>
+								<li>Find defects early in the development process</li>
+								<li>Enable developers to write compliant code from the start</li>
+								<li>Native support for modern DevOps toolchains</li>
+								<li>Release faster, less re-work, balance competitive pressure(s)</li>
+								<ul>
+						</td>
+						<td><img src='images/devops.png'></td>
+					</tr>
+				</table>
+			</center>
+		</div>
+
+		<div id='content2'>
+			<center>
+				<br />
+				<table width='1000' cellpadding='25'>
+					<tr>
+						<td align='center'>
+							<h1>Join us now!</h1>
+							<br />
+							<h2>Do you wish to participate in the project?</h2>
+							<br /><br />
+							<h2><a id ='contact' href='https://www.scanoss.com/contact'>Contact us now</a></h2>
+						</td>
+					</tr>
+				</table>
+			</center>
+		</div>
+		<div id='footer'>
+			<center><br />
+				<table width='1000' cellpadding='25'>
+					<tr>
+						<td valign='top'>
+							<p><b>PRODUCT</b></p>
+							<p><a href='https://www.scanoss.com/product/'>Overview</a></p>
+							<p><a href='https://www.scanoss.com/fingerprinting/'>Fingerprinting</a></p>
+							<p><a href='https://www.scanoss.com/webhook/'>Webhook</a></p>
+							<p><a href='https://www.scanoss.com/github-app/'>Github App</a></p>
+						</td>
+						<td valign='top'>
+							<p><b>WHITE PAPER</b></p>
+							<p><a href='https://www.scanoss.com/resources/'>Standardizing OSS Inventorying</a></p>
+						</td>
+						<td valign='top'>
+							<p><b>GET SUPPORT</b></p>
+							<p><a href='mailto:hello@scanoss.com'>hello@scanoss.com</a></p>
+						</td>
+						<td valign='top'>
+							<p><b>FIND US</b></p>
+							<p>SCANOSS.com<br/>
+							El Charc&oacute;n 104, 2A<br/>
+							18008 Granada<br/>
+							SPAIN</p>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='4' align='center'>
+							<p>&#169; Copyright 2020 2020 | SCANOSS | All Rights Reserved</p>
+							<br />
+							<p id="disclaimer">THE INFORMATION IN THIS WEBSITE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE INFORMATION OR THE USE OR OTHER DEALINGS IN THE INFORMATION.</p>
+						</td>
+					</tr>
+				</table>
+			</center>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,56 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.2",
+  "version": 1,
+  "serialNumber": "osskb.org:1601924122",
+  "components": [
+    {
+      "type": "application",
+      "publisher": "scanoss",
+      "group": "scanoss",
+      "name": "osskb.org",
+      "url": "https://github.com/scanoss/osskb.org",
+      "licenses": [
+        {
+            "id": "GPL-2.0-or-later"
+          }
+      ]
+    },
+    {
+      "type": "library",
+      "publisher": "jquery",
+      "group": "jquery",
+      "name": "jquery",
+      "url": "https://jquery.com",
+      "licenses": [
+        {
+            "id": "MIT"
+          }
+      ]
+    },
+    {
+      "type": "library",
+      "publisher": "FortAwesome",
+      "group": "Font-Awesome",
+      "name": "Font-Awesome",
+	  "url": "https://github.com/FortAwesome/Font-Awesome",
+      "licenses": [
+        {
+          "license": {
+          "id": "CC-BY-4.0"
+          }
+        },
+        {
+          "license": {
+          "id": "OFL"
+          }
+        },
+        {
+          "license": {
+          "id": "MIT"
+          }
+        }
+      ]
+    }
+  ]
+}
