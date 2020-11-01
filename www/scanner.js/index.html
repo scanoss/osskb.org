@@ -1,0 +1,84 @@
+<html>
+
+	<title>
+		scanner.js
+	</title>
+
+	<head>
+		<script src="md5.js"></script>
+		<script src="crc32c.js"></script>
+		<script src="wfp.js"></script>
+	</head>
+
+	<body>
+
+		<h1>SCANNER.JS</h1>
+		<p>This reference code illustrate the usage of the SCANOSS API to obtain file identification without against the OSSKB without sending the actual code, but instead the WFP hashes </p>
+
+		<h2>File selection</h2>
+		<p>By selecting a file, its contents will be loaded into memory and the WFP hashes will be calculated and displayed on the left.</p>
+		<p>Once hashes are calculated, they can be submitted by pressing the Submit button.</p>
+		<p>Scan results from the <a href="https://osskb.org" target="_blank">osskb.org</a> are displayed on the right side.</p>
+
+		<!-- FILE SELECTION FORM -->
+		<form id="formElem">
+			Select file: <input type="file" name="filename" id="inputfile" >
+			<input type="submit" value="Submit hashes">
+		</form>
+
+			<!-- HASH/RESULTS TABLE -->
+			<table border='1' cellpadding='20' cellspacing='10'>
+				<tr>
+					<td valign='top'>
+						<h2>Hashes</h2>
+						<div id="hashes" style="white-space: pre-line;">
+							<i>select a file</i>
+						</div>
+					</td>
+					<td valign='top'>
+						<h2>Results</h2>
+						<div id="results" style="white-space: pre-line;"></div>
+					</td>
+				</tr>
+			</table>
+
+			<!-- HASH CALCULATION -->
+			<script type="text/javascript"> 
+				document.getElementById('inputfile').addEventListener('change', function() 
+					{
+						var fr=new FileReader();
+						fr.onload=function(){
+							var wfp = calc_wfp(fr.result);
+
+							document.getElementById('hashes').innerHTML = wfp;
+							document.getElementById('results').innerHTML = "<i>push submit</i>";
+						}
+						fr.readAsText(this.files[0]);
+					})
+			</script>
+
+			<!-- HASH SUBMISSION -->
+			<script type="text/javascript"> 
+				formElem.onsubmit = async (e) => {
+					e.preventDefault();
+
+					let formData = new FormData();
+					const blob = new Blob([document.getElementById("hashes").innerHTML]);
+					formData.append('filename',blob, "data.wfp");
+
+					let response = await fetch('/api/scan/direct', {
+						method: 'POST',
+						body: formData
+					});
+
+					// Display results
+					let result = await response.text();
+					document.getElementById("results").innerHTML = result;
+				};
+			</script>
+
+			<hr>
+			<p>Copyright (C) 2018-2020 SCANOSS.COM. Licensed under GPL-2.0</p>
+
+	</body>
+</html>
