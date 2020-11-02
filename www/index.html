@@ -141,7 +141,7 @@ p, h1, h2
 	overflow: hidden; /* if you don't want #second to wrap below #first */
 }
 
-#spdx, #cyclonedx {
+#spdx, #cyclonedx, #csv {
 	vertical-align: top;
 	white-space: pre-line;
 	font-family: monospace;
@@ -153,7 +153,10 @@ p, h1, h2
 	margin-left:10px;
 	margin-right:10px;
 }
-
+#csv {
+	text-align: left;
+	font-size: 7pt;
+}
 
 		</style>
 	</head>
@@ -264,19 +267,19 @@ p, h1, h2
 							Paste your code here
 							</p>
 							<textarea id="code" name="code">
-								/* Read header from ptr */
-								lseek64 (mz, ptr, SEEK_SET);
-								if (!read(mz, header, MZ_HEAD))
-								{
-								printf("[READ_ERROR]\n");
-								exit(EXIT_FAILURE);
-								}
+/* Read header from ptr */
+lseek64 (mz, ptr, SEEK_SET);
+if (!read(mz, header, MZ_HEAD))
+{
+printf("[READ_ERROR]\n");
+exit(EXIT_FAILURE);
+}
 
-								/* Extract remaining bytes of the MD5 */
-								char *tmp = bin_to_hex((uint8_t *)header, MZ_MD5);
-								memcpy(hex_md5 + 4, tmp, 28);
-								free(tmp);
-								ptr += MZ_HEAD;
+/* Extract remaining bytes of the MD5 */
+char *tmp = bin_to_hex((uint8_t *)header, MZ_MD5);
+memcpy(hex_md5 + 4, tmp, 28);
+free(tmp);
+ptr += MZ_HEAD;
 							</textarea>
 						</td>
 						<td valign='top' align='center'>
@@ -293,6 +296,13 @@ p, h1, h2
 							</div>
 						</td>
 					</tr>
+						<td align = 'center' colspan='2'>
+							<p>
+							CSV SBOM
+							</p>
+							<div id="csv">
+							</div>
+						</td>
 					<tr>
 						<td align = 'center'>
 							<p>
@@ -302,7 +312,7 @@ p, h1, h2
 						<td align = 'center'>
 							<center><p>
 								CycloneDX SBOM
-								</p></center>
+							</p></center>
 						</td>
 					</tr>
 					<tr>

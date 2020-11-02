@@ -168,6 +168,28 @@ var calc_wfp = function(src) {
 	return out;
 }
 
+var plain_english_sbom = function(vendor, component, version, latest, file, lines, license, copyright, url)
+{
+	var result = "The code pasted above is found in lines <b>" + lines;
+	result += "</b> of the file <b>" + file;
+	result += "</b> which is part of the component <b>" + component;
+	if (version == latest)
+		result += "</b> version <b>" + version + "</b>";
+	else
+		result += "</b> versions <b>" + version + " - " + latest + "</b>";
+	result += "</b> published by <b>" + vendor;
+	if (license) result += "</b> licensed under <b>" + license;
+	if (copyright) result += "</b> with <b>" + copyright;
+	result += "</b>. The original work is available <a href='" + url + "' target='_blank'>here</a>";
+	return result;
+}
+
+var csv_sbom = function(vendor, component, version, latest, file, lines, license, copyright, url)
+{
+	var result = vendor + "," + component + "," + version + "," + latest + "," + file + "," + lines + "," + license + "," + copyright + "," + url;
+	return result;
+}
+
 function scan(wfp)
 {
 	var url = "/api/scan/direct";
@@ -185,27 +207,19 @@ function scan(wfp)
 		else 
 		{
 			var license = "";
+			var copyright = "";
 			if (results["pasted.wfp"][0]["licenses"].length) license = results["pasted.wfp"][0]["licenses"][0]["name"];
-			var result = "The code pasted above is found in lines <b>";
-			result += results["pasted.wfp"][0]["oss_lines"];
-			result += "</b> of the file <b>" + results["pasted.wfp"][0]["file"];
-			result += "</b> which is part of the component <b>";
-			result += results["pasted.wfp"][0]["component"];
-			if (results["pasted.wfp"][0]["version"] == results["pasted.wfp"][0]["latest"])
-			{
-				result += "</b> version <b>" + results["pasted.wfp"][0]["version"] + "</b>";
-			}
-			else
-			{
-				result += "</b> versions <b>" + results["pasted.wfp"][0]["version"] + "</b> - ";
-				result += "<b>" + results["pasted.wfp"][0]["latest"] + "</b>";
-			}
-			result += "</b> published by <b>";
-			result += results["pasted.wfp"][0]["vendor"];
-			if (license) result += "</b> licensed under <b>" + license;
-			result += "</b>. The original work is available <a href='" + results["pasted.wfp"][0]["url"] + "' target='_blank'>here</a>";
+			if (results["pasted.wfp"][0]["copyrights"].length) copyright = results["pasted.wfp"][0]["copyrights"][0]["name"];
+			var vendor = results["pasted.wfp"][0]["vendor"];
+			var component = results["pasted.wfp"][0]["component"];
+			var version = results["pasted.wfp"][0]["version"];
+			var latest = results["pasted.wfp"][0]["latest"];
+			var lines = results["pasted.wfp"][0]["oss_lines"];
+			var file = results["pasted.wfp"][0]["file"];
+			var url = results["pasted.wfp"][0]["url"];
 
-			document.getElementById("results").innerHTML = result;
+			document.getElementById("results").innerHTML = plain_english_sbom(vendor, component, version, latest, file, lines, license, copyright, url);
+			document.getElementById("csv").innerHTML = csv_sbom(vendor, component, version, latest, file, lines, license, copyright, url);
 		}
 
 	}
