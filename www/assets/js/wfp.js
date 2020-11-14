@@ -85,7 +85,7 @@ var normalize = function(Byte)
 var calc_wfp = function(src) {
 
 	var src_len = src.length;
-	out = "file=00000000000000000000000000000000," + src_len + ",pasted.wfp\n";
+	out = "file=" + md5(src) + "," + src_len + ",pasted.wfp\n";
 
 	var hash = Math.pow(2,32);
 	var last = 0;
@@ -168,7 +168,7 @@ var calc_wfp = function(src) {
 	return out;
 }
 
-var plain_english_sbom = function(vendor, component, version, latest, file, lines, license, copyright, url)
+var plain_english_sbom = function(vendor, component, version, latest, file, lines, license, copyright, url, vulnerability)
 {
 	var result = "The code pasted above is found in lines <b>" + lines;
 	result += "</b> of the file <b>" + file;
@@ -180,13 +180,15 @@ var plain_english_sbom = function(vendor, component, version, latest, file, line
 	result += "</b> published by <b>" + vendor;
 	if (license) result += "</b> licensed under <b>" + license;
 	if (copyright) result += "</b> with <b>" + copyright;
-	result += "</b>. The original work is available <a href='" + url + "' target='_blank'>here</a>";
+	if (vulnerability) result += "</b> and is affected by vulnerability <b>" + vulnerability + "</b>";
+	else result += "</b> and does not seem to be affected by known vulnerabilities"
+	result += ". The original work is available <a href='" + url + "' target='_blank'>here</a>";
 	return result;
 }
 
-var csv_sbom = function(vendor, component, version, latest, file, lines, license, copyright, url)
+var csv_sbom = function(vendor, component, version, latest, file, lines, license, copyright, url, vulnerability)
 {
-	var result = vendor + "," + component + "," + version + "," + latest + "," + file + "," + lines + "," + license + "," + copyright + "," + url;
+	var result = vendor + "," + component + "," + version + "," + latest + "," + file + "," + lines + "," + license + "," + copyright + "," + url + "," + vulnerability;
 	return result;
 }
 
@@ -217,9 +219,16 @@ function scan(wfp)
 			var lines = results["pasted.wfp"][0]["oss_lines"];
 			var file = results["pasted.wfp"][0]["file"];
 			var url = results["pasted.wfp"][0]["url"];
+			var vulnerability = "";
 
-			document.getElementById("results").innerHTML = plain_english_sbom(vendor, component, version, latest, file, lines, license, copyright, url);
-			document.getElementById("csv").innerHTML = csv_sbom(vendor, component, version, latest, file, lines, license, copyright, url);
+			if (results["pasted.wfp"][0]["vulnerabilities"].length)
+			{
+				vulnerability = results["pasted.wfp"][0]["vulnerabilities"][0]["CVE"];
+				vulnerability += " (" + results["pasted.wfp"][0]["vulnerabilities"][0]["severity"] + ")";
+			}
+
+			document.getElementById("results").innerHTML = plain_english_sbom(vendor, component, version, latest, file, lines, license, copyright, url, vulnerability);
+			document.getElementById("csv").innerHTML = csv_sbom(vendor, component, version, latest, file, lines, license, copyright, url, vulnerability);
 		}
 
 	}

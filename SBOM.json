@@ -51,6 +51,30 @@
           }
         }
       ]
-    }
+    },
+    {
+      "type": "library",
+      "publisher": "emn178",
+      "group": "emn178",
+      "name": "js-md5",
+      "url": "https://github.com/emn178/js-md5",
+      "licenses": [
+        {
+            "id": "MIT"
+          }
+      ]
+    },
+    {
+      "type": "library",
+      "publisher": "CatStarwind",
+      "group": "CatStarwind",
+      "name": "crc32.js",
+      "url": "https://github.com/CatStarwind",
+      "licenses": [
+        {
+            "id": "GPL-2.0-or-later"
+          }
+      ]
+		}
   ]
 }

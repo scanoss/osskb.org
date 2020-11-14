@@ -2,8 +2,9 @@
 	<head>
 		<title>OSSKB Free Open Source Inventorying</title>
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet"> 
-		<script src="assets/js/wfp.js"></script>
 		<script src="assets/js/jquery-3.5.1.min.js"></script>
+		<script src="assets/js/md5.js"></script>
+		<script src="assets/js/wfp.js"></script>
 		<style>
 body
 	{
@@ -267,19 +268,19 @@ p, h1, h2
 							Paste your code here
 							</p>
 							<textarea id="code" name="code">
-/* Read header from ptr */
-lseek64 (mz, ptr, SEEK_SET);
-if (!read(mz, header, MZ_HEAD))
-{
-printf("[READ_ERROR]\n");
-exit(EXIT_FAILURE);
-}
-
-/* Extract remaining bytes of the MD5 */
-char *tmp = bin_to_hex((uint8_t *)header, MZ_MD5);
-memcpy(hex_md5 + 4, tmp, 28);
-free(tmp);
-ptr += MZ_HEAD;
+urepath = ''
+for basis in ( 'basis-link', 'basis', '' ):
+for ure in ( 'ure-link', 'ure', 'URE', '' ):
+if os.path.isfile(realpath(basepath, basis, ure, 'lib', 'unorc')):
+urepath = realpath(basepath, basis, ure)
+info(3, "Found %s in %s" % ('unorc', realpath(urepath, 'lib')))
+# Break the inner loop...
+break
+# Continue if the inner loop wasn't broken.
+else:
+continue
+# Inner loop was broken, break the outer.
+break
 							</textarea>
 						</td>
 						<td valign='top' align='center'>
